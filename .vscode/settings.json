@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Crypts of the Forgotten.sln"
+    "dotnet.defaultSolution": "Crypts-of-the-Forgotten.sln"
 }
