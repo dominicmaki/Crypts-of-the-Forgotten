@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1016865473186080586}
   - component: {fileID: 8490598439036556266}
   - component: {fileID: 1220489450594358872}
-  - component: {fileID: 4821710426866149835}
   - component: {fileID: 1773966824838610256}
   - component: {fileID: 3957568289911948611}
   m_Layer: 0
@@ -103,20 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   projectileLauncher: {fileID: 0}
---- !u!114 &4821710426866149835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583937549680027086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8087342a92518e42b1fcb6f67cb9ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
-  projectileLauncher: {fileID: 0}
 --- !u!61 &1773966824838610256
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.031062067}
