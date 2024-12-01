@@ -11,17 +11,28 @@ public class ChestBehavior : MonoBehaviour
     public TMP_Text itemStatsText;       // Text to display the item stats
     public Image itemImage;          // Image to display the item sprite
     private SpriteRenderer spriteRenderer;
+    public ItemSO[] possibleItems;
+    private ItemSO selectedItem;
 
     private PlayerStats playerStats;
     private bool isOpened = false;   // Track whether the chest is open or closed
 
-    // Define the item to display in the chest
-    public Items itemInChest; // The item inside the chest (set in the Inspector)
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerStats = FindObjectOfType<PlayerStats>();
+
+        // Randomly select an item from the list
+        selectedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+
+        // Update UI with the selected item's details
+        if (selectedItem != null)
+        {
+            itemImage.sprite = selectedItem.itemSprite;
+            itemNameText.text = selectedItem.itemName;
+            itemStatsText.text = $"HP Bonus: {selectedItem.hpBonus}\nAttack Bonus: {selectedItem.attackDamageBonus}";
+        }
     }
 
     void OnMouseDown()
@@ -47,14 +58,14 @@ public class ChestBehavior : MonoBehaviour
             chestContents.SetActive(true);
 
             // Update the image and text for the item
-            if (itemInChest != null)
+            if (selectedItem != null)
             {
                 // Set the item sprite and name
-                itemImage.sprite = itemInChest.itemSprite;
-                itemNameText.text = itemInChest.itemName;
+                itemImage.sprite = selectedItem.itemSprite;
+                itemNameText.text = selectedItem.itemName;
 
                 // Set the item stats
-                itemStatsText.text = $"HP Bonus: {itemInChest.hpBonus}\nAttack Bonus: {itemInChest.attackDamageBonus}";
+                itemStatsText.text = $"HP Bonus: {selectedItem.hpBonus}\nAttack Bonus: {selectedItem.attackDamageBonus}";
             }
         }
 
@@ -82,17 +93,17 @@ public class ChestBehavior : MonoBehaviour
         if (playerStats != null)
         {
             // Equip the item (add bonuses to player stats)
-            playerStats.playerHP += itemInChest.hpBonus;
-            playerStats.playerAttackDamage += itemInChest.attackDamageBonus;
+            playerStats.playerHP += selectedItem.hpBonus;
+            playerStats.playerAttackDamage += selectedItem.attackDamageBonus;
 
-            Debug.Log("Item equipped: " + itemInChest.itemName);
+            Debug.Log("Item equipped: " + selectedItem.itemName);
         }
         else
         {
             Debug.LogError("PlayerStats not assigned!");
         }
 
-        // Optionally, hide the chest UI after equipping the item
+        // Hide chest contents UI after equipping
         chestContents.SetActive(false);
     }
 

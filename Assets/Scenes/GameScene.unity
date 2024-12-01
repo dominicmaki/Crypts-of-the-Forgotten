@@ -4151,11 +4151,9 @@ MonoBehaviour:
   itemNameText: {fileID: 1045424915}
   itemStatsText: {fileID: 1723222085}
   itemImage: {fileID: 425636951}
-  itemInChest:
-    itemName: Ring of Power
-    itemSprite: {fileID: 0}
-    hpBonus: 3
-    attackDamageBonus: 10
+  possibleItems:
+  - {fileID: 11400000, guid: 74c79de83f9025a4594e86c66af22f4a, type: 2}
+  - {fileID: 11400000, guid: fa14fc5486f1300409b7362b443b5367, type: 2}
 --- !u!1001 &1355807032
 PrefabInstance:
   m_ObjectHideFlags: 0
