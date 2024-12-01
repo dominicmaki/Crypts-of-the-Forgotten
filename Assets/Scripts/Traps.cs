@@ -21,9 +21,9 @@ public class Traps : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {   
         if(other.CompareTag("Character")){
-            SceneManager.LoadScene("MainMenu");
-            //health.TakeDamge(20);
-            //Debug.Log("-20 health");
+            HealthBar health = other.GetComponent<HealthBar>();
+            health.UpdateHealth(-20);
+            Debug.Log("-20 health");
         }
     }
 }

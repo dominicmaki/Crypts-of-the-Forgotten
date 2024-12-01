@@ -2418,7 +2418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 7.86, y: 7.080002}
+  m_AnchoredPosition: {x: 7.86, y: 7.080017}
   m_SizeDelta: {x: 114, y: 8.49}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &855998854
@@ -2472,8 +2472,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1103158986}
-  maxHealth: 1
-  currentHealth: 0.5
+  maxHealth: 100
+  currentHealth: 50
 --- !u!1001 &866881125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5571,6 +5571,18 @@ PrefabInstance:
     - target: {fileID: 4915485261225485098, guid: b7699e9cede032e428f0a10c2a7fb0cd, type: 3}
       propertyPath: projectileSpeed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490598439036556266, guid: b7699e9cede032e428f0a10c2a7fb0cd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490598439036556266, guid: b7699e9cede032e428f0a10c2a7fb0cd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490598439036556266, guid: b7699e9cede032e428f0a10c2a7fb0cd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4821710426866149835, guid: b7699e9cede032e428f0a10c2a7fb0cd, type: 3}
