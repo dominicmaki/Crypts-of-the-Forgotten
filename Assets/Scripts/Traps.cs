@@ -18,12 +18,16 @@ public class Traps : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {   
-        if(other.CompareTag("Character")){
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collided with: " + other.gameObject.tag);  // Log the tag
+        if (other.CompareTag("Character"))
+        {
+            Debug.Log("Character triggered");
             HealthBar health = other.GetComponent<HealthBar>();
             health.UpdateHealth(-20);
             Debug.Log("-20 health");
         }
     }
+
 }
