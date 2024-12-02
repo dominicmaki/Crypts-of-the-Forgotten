@@ -14,6 +14,7 @@ public class ChestBehavior : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public ItemSO[] possibleItems;
     private ItemSO selectedItem;
+     public InventoryUI inventoryUI;
 
     private PlayerStats playerStats;
     private bool isOpened = false;   // Track whether the chest is open or closed
@@ -93,21 +94,22 @@ public class ChestBehavior : MonoBehaviour
     // Equip the item when clicked
     public void EquipItem()
     {
-        // Ensure playerStats is assigned
         if (playerStats != null)
         {
-            // Equip the item (add bonuses to player stats)
-            playerStats.playerHP += selectedItem.hpBonus;
-            playerStats.playerAttackDamage += selectedItem.attackDamageBonus;
+            // Equip the item
+            playerStats.EquipItem(selectedItem);
 
-            Debug.Log("Item equipped: " + selectedItem.itemName);
+            // Update the inventory UI
+            inventoryUI.RefreshUI();
+
+            // Hide chest contents UI
+            chestContents.SetActive(false);
         }
         else
         {
             Debug.LogError("PlayerStats not assigned!");
         }
-
-        // Hide chest contents UI after equipping
-        chestContents.SetActive(false);
     }
+
+    
 }

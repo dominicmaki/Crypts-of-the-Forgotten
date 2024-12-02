@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 136433092}
   - component: {fileID: 136433094}
   - component: {fileID: 136433093}
+  - component: {fileID: 136433095}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -633,6 +634,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136433091}
   m_CullTransparentMesh: 1
+--- !u!114 &136433095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136433091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dea61b6b5b4893e44bdcf162abd53238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 624733508}
+  hpText: {fileID: 986471207}
+  attackText: {fileID: 592291694}
+  ringSlotImage: {fileID: 1033991911}
+  ringDescriptionText: {fileID: 0}
 --- !u!1001 &157341984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2602,6 +2620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 100
   playerAttackDamage: 10
+  equippedRing: {fileID: 0}
 --- !u!4 &624733509
 Transform:
   m_ObjectHideFlags: 0
@@ -5698,6 +5717,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 47687c72304e4a840a5cf257154e1ca7, type: 2}
   - {fileID: 11400000, guid: a5e8ba004d97cc34d9322c3869db3638, type: 2}
   - {fileID: 11400000, guid: 28039dc9e6745664a8cb63e41164cce6, type: 2}
+  inventoryUI: {fileID: 136433095}
 --- !u!1001 &1355807032
 PrefabInstance:
   m_ObjectHideFlags: 0
