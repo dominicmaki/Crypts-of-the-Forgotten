@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
-  m_Name: RingOfVitality
+  m_Name: RingOfStrength
   m_EditorClassIdentifier: 
-  itemName: Ring of Vitality
-  itemSprite: {fileID: 21300000, guid: f4684253eb4af194b8c86d33a379814f, type: 3}
-  hpBonus: 50
-  attackDamageBonus: 0
-  description: Increases the wearer's health, making them more resilient.
+  itemName: Ring of Strength
+  itemSprite: {fileID: 21300000, guid: d96cfebd5db450a4abf9b72aec3e5a58, type: 3}
+  hpBonus: 0
+  attackDamageBonus: 10
+  description: A ring that enhances the wearer's combat abilities.

@@ -7,4 +7,5 @@ public class ItemSO : ScriptableObject
     public Sprite itemSprite;
     public int hpBonus;
     public int attackDamageBonus;
+    public string description;
 }

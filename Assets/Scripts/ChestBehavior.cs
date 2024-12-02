@@ -9,6 +9,7 @@ public class ChestBehavior : MonoBehaviour
     public GameObject chestContents; // Assign the Reward UI GameObject in the Inspector
     public TMP_Text itemNameText;        // Text to display the item name
     public TMP_Text itemStatsText;       // Text to display the item stats
+    public TMP_Text itemDescriptionText; // Text to display the item description
     public Image itemImage;          // Image to display the item sprite
     private SpriteRenderer spriteRenderer;
     public ItemSO[] possibleItems;
@@ -16,7 +17,6 @@ public class ChestBehavior : MonoBehaviour
 
     private PlayerStats playerStats;
     private bool isOpened = false;   // Track whether the chest is open or closed
-
 
     void Start()
     {
@@ -32,6 +32,7 @@ public class ChestBehavior : MonoBehaviour
             itemImage.sprite = selectedItem.itemSprite;
             itemNameText.text = selectedItem.itemName;
             itemStatsText.text = $"HP Bonus: {selectedItem.hpBonus}\nAttack Bonus: {selectedItem.attackDamageBonus}";
+            itemDescriptionText.text = selectedItem.description; // Display the description
         }
     }
 
@@ -57,7 +58,7 @@ public class ChestBehavior : MonoBehaviour
         {
             chestContents.SetActive(true);
 
-            // Update the image and text for the item
+            // Update the image, name, stats, and description for the item
             if (selectedItem != null)
             {
                 // Set the item sprite and name
@@ -66,6 +67,9 @@ public class ChestBehavior : MonoBehaviour
 
                 // Set the item stats
                 itemStatsText.text = $"HP Bonus: {selectedItem.hpBonus}\nAttack Bonus: {selectedItem.attackDamageBonus}";
+
+                // Set the item description
+                itemDescriptionText.text = selectedItem.description;
             }
         }
 
@@ -106,5 +110,4 @@ public class ChestBehavior : MonoBehaviour
         // Hide chest contents UI after equipping
         chestContents.SetActive(false);
     }
-
 }

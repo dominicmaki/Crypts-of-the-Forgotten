@@ -16,3 +16,4 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: d8f5f0f8a6262414db442df6cc8de305, type: 3}
   hpBonus: 0
   attackDamageBonus: 7
+  description: A ring forged with magical power to boost the wearer's attack.

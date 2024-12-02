@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
-  m_Name: RingOfVitality
+  m_Name: RingOfThePhoenix
   m_EditorClassIdentifier: 
-  itemName: Ring of Vitality
-  itemSprite: {fileID: 21300000, guid: f4684253eb4af194b8c86d33a379814f, type: 3}
-  hpBonus: 50
-  attackDamageBonus: 0
-  description: Increases the wearer's health, making them more resilient.
+  itemName: Ring of the Phoenix
+  itemSprite: {fileID: 21300000, guid: e9e0d3709efbd224b8f809326760ec99, type: 3}
+  hpBonus: 30
+  attackDamageBonus: 5
+  description: A mystical ring that boosts both vitality and combat prowess.

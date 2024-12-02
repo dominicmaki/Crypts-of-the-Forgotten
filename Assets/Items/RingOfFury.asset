@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
-  m_Name: RingOfVitality
+  m_Name: RingOfFury
   m_EditorClassIdentifier: 
-  itemName: Ring of Vitality
-  itemSprite: {fileID: 21300000, guid: f4684253eb4af194b8c86d33a379814f, type: 3}
-  hpBonus: 50
-  attackDamageBonus: 0
-  description: Increases the wearer's health, making them more resilient.
+  itemName: Ring of Fury
+  itemSprite: {fileID: 21300000, guid: 138f9e91b10085149b057744babdf69a, type: 3}
+  hpBonus: 0
+  attackDamageBonus: 15
+  description: Increases the wearer's fury in battle, granting powerful attacks.

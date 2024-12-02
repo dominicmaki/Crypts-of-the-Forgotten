@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
-  m_Name: RingOfVitality
+  m_Name: RingOfAgility
   m_EditorClassIdentifier: 
-  itemName: Ring of Vitality
-  itemSprite: {fileID: 21300000, guid: f4684253eb4af194b8c86d33a379814f, type: 3}
-  hpBonus: 50
-  attackDamageBonus: 0
-  description: Increases the wearer's health, making them more resilient.
+  itemName: Ring of Agilitiy
+  itemSprite: {fileID: 21300000, guid: 1bb79601614fe8549be3ecc8464aaa7c, type: 3}
+  hpBonus: 0
+  attackDamageBonus: 4
+  description: A ring that increases attack speed and damage for swift combatants.
