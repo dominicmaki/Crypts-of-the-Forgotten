@@ -92,24 +92,29 @@ public class ChestBehavior : MonoBehaviour
     }
 
     // Equip the item when clicked
-    public void EquipItem()
+    // Equip the item when clicked
+public void EquipItem()
+{
+    if (selectedItem != null && PlayerStats.Instance != null)
     {
-        if (playerStats != null)
-        {
-            // Equip the item
-            playerStats.EquipItem(selectedItem);
+        // Equip the item
+        PlayerStats.Instance.EquipItem(selectedItem);
 
-            // Update the inventory UI
-            inventoryUI.RefreshUI();
-
-            // Hide chest contents UI
-            chestContents.SetActive(false);
-        }
-        else
+        // Update the Inventory UI
+        if (inventoryUI != null)
         {
-            Debug.LogError("PlayerStats not assigned!");
+            inventoryUI.UpdateUI();
         }
+
+        // Hide chest contents UI after equipping
+        chestContents.SetActive(false);
     }
+    else
+    {
+        Debug.LogError("PlayerStats not assigned or no item selected!");
+    }
+}
+
 
     
 }

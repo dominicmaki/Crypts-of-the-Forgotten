@@ -4,49 +4,80 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    public PlayerStats playerStats; // Reference to PlayerStats script
-    public TMP_Text hpText;         // Text component to display HP
-    public TMP_Text attackText;     // Text component to display Attack Damage
+    public TMP_Text ring1Text;
+    public TMP_Text ring2Text;
+    public TMP_Text wandText;
+    public TMP_Text cloakText;
+    public TMP_Text statsText;
 
-    // UI slots for equipped items
-    public Image ringSlotImage;
+    public Image ring1Image;
+    public Image ring2Image;
+    public Image wandImage;
+    public Image cloakImage;
 
-    private void Start()
+    private PlayerStats playerStats;
+
+    void Start()
     {
-        if (playerStats == null)
-        {
-            playerStats = FindObjectOfType<PlayerStats>();
-        }
-
-        UpdateStatsUI();
-        UpdateEquippedItemsUI();
+        playerStats = PlayerStats.Instance;
+        UpdateUI();
     }
 
-    public void UpdateStatsUI()
+    public void UpdateUI()
     {
-        // Update player stats display
-        hpText.text = $"HP: {playerStats.playerHP}";
-        attackText.text = $"Attack Damage: {playerStats.playerAttackDamage}";
-    }
-
-    public void UpdateEquippedItemsUI()
-    {
-        // Check if the player has an equipped ring
-        if (playerStats.equippedRing != null)
+        // Ring 1
+        if (playerStats.equippedRing1 != null)
         {
-            ringSlotImage.sprite = playerStats.equippedRing.itemSprite;
-            ringSlotImage.gameObject.SetActive(true);
+            ring1Text.text = playerStats.equippedRing1.itemName;
+            ring1Image.sprite = playerStats.equippedRing1.itemSprite;
+            ring1Image.enabled = true; // Show the sprite
         }
         else
         {
-            ringSlotImage.gameObject.SetActive(false);
+            // ring1Text.text = "Empty";
+            ring1Image.enabled = false; // Hide the sprite
         }
-    }
 
-    // Call this method to refresh the UI after equipping a new item
-    public void RefreshUI()
-    {
-        UpdateStatsUI();
-        UpdateEquippedItemsUI();
+        // Ring 2
+        if (playerStats.equippedRing2 != null)
+        {
+            ring2Text.text = playerStats.equippedRing2.itemName;
+            ring2Image.sprite = playerStats.equippedRing2.itemSprite;
+            ring2Image.enabled = true;
+        }
+        else
+        {
+            // ring2Text.text = "Empty";
+            ring2Image.enabled = false;
+        }
+
+        // Wand
+        if (playerStats.equippedWand != null)
+        {
+            wandText.text = playerStats.equippedWand.itemName;
+            wandImage.sprite = playerStats.equippedWand.itemSprite;
+            wandImage.enabled = true;
+        }
+        else
+        {
+            // wandText.text = "Empty";
+            wandImage.enabled = false;
+        }
+
+        // Cloak
+        if (playerStats.equippedCloak != null)
+        {
+            cloakText.text = playerStats.equippedCloak.itemName;
+            cloakImage.sprite = playerStats.equippedCloak.itemSprite;
+            cloakImage.enabled = true;
+        }
+        else
+        {
+            // cloakText.text = "Empty";
+            cloakImage.enabled = false;
+        }
+
+        // Stats
+        statsText.text = $"HP: {playerStats.playerHP}\nAttack: {playerStats.playerAttackDamage}";
     }
 }
