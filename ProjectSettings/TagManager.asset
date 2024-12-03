@@ -8,6 +8,8 @@ TagManager:
   - RedPortal
   - BluePortal
   - GamePortal
+  - Mob
+  - Projectile
   layers:
   - Default
   - TransparentFX

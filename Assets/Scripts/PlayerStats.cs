@@ -4,9 +4,9 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance; // Singleton instance
 
-    public int playerHP = 100;             // Current health
+    public int playerHP = 100;            // Current health
     public int maxHealth = 100;           // Maximum health
-    public int playerAttackDamage = 10;  // Attack damage
+    public int playerAttackDamage = 10;   // Base attack damage
 
     // Equipped items
     public ItemSO equippedRing1; // First ring
@@ -41,10 +41,14 @@ public class PlayerStats : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.SetMaxHealth(maxHealth); // Set the maximum health
-            healthBar.SetHealth(playerHP);    // Set the current health
+            healthBar.SetHealth(playerHP);      // Set the current health
         }
+
+        // Initialize player stats
+        UpdateStats();
     }
 
+    // Method to equip an item
     public void EquipItem(ItemSO item)
     {
         if (item == null) return;
@@ -109,25 +113,24 @@ public class PlayerStats : MonoBehaviour
     private void UpdateStats()
     {
         // Update max health and attack damage with the total bonuses
-        maxHealth += totalHealthBonus;
-        playerAttackDamage += totalAttackDamageBonus;
+        maxHealth = 100 + totalHealthBonus;  // Assume base health is 100 (you can adjust accordingly)
+        playerAttackDamage = 10 + totalAttackDamageBonus;  // Assume base damage is 10 (you can adjust accordingly)
 
         // Scale current health to match the new maximum health
         float healthPercentage = (float)playerHP / maxHealth;
-
-        // Adjust current health based on the new max health
         playerHP = Mathf.RoundToInt(healthPercentage * maxHealth);
 
         // Update the health bar
         if (healthBar != null)
         {
             healthBar.SetMaxHealth(maxHealth); // Update the max health on the health bar
-            healthBar.SetHealth(playerHP);    // Update the current health on the health bar
+            healthBar.SetHealth(playerHP);     // Update the current health on the health bar
         }
 
         Debug.Log($"Stats updated: HP {playerHP}/{maxHealth}, Attack {playerAttackDamage}");
     }
 
+    // Method to unequip an item
     public void UnequipItem(ItemSO item)
     {
         if (item == null) return;
@@ -176,4 +179,29 @@ public class PlayerStats : MonoBehaviour
     // Public methods to get total bonuses
     public int GetTotalHealthBonus() => totalHealthBonus;
     public int GetTotalAttackDamageBonus() => totalAttackDamageBonus;
+
+    // Method to handle damage taken by the player
+    public void TakeDamage(int damage)
+    {
+        playerHP -= damage;
+        playerHP = Mathf.Max(0, playerHP);  // Ensure health doesn't go below 0
+
+        // Update the health bar after damage
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(playerHP);
+        }
+
+        if (playerHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    // Method to handle player death
+    void Die()
+    {
+        // Handle player death (e.g., play death animation, restart level, etc.)
+        Debug.Log("Player has died!");
+    }
 }

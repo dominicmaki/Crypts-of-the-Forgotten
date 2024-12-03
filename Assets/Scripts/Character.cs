@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField] float speed = 5f;
     [Header("Movement")]
     [SerializeField] ProjectileLauncher projectileLauncher;
-
+    
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
     }
@@ -40,6 +40,9 @@ public class Character : MonoBehaviour
         }
         else if(other.CompareTag("GamePortal")){
             SceneManager.LoadScene("GameScene");
+        }
+        else if(other.CompareTag("Mob")){
+            //take damage and change playerstats hp
         }
     }
 
