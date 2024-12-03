@@ -78,6 +78,6 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Stats
-        statsText.text = $"HP: {playerStats.playerHP}\nAttack: {playerStats.playerAttackDamage}";
+        statsText.text = $"HP Bonus: {playerStats.totalHealthBonus}\nATK Bonus: {playerStats.totalAttackDamageBonus} +10";
     }
 }
