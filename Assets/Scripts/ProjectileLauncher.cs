@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class ProjectileLauncher : MonoBehaviour
@@ -11,15 +10,46 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] Transform spawnTransform;
     [SerializeField] float despawnTime = 4f;
 
-    void Update()
+    private bool isFacingRight = true;
+
+    public void SetFacingDirection(bool facingRight)
     {
-        
+        if (isFacingRight != facingRight)
+        {
+            isFacingRight = facingRight;
+            FlipSpawnTransform();
+        }
+    }
+
+    private void FlipSpawnTransform()
+    {
+        Vector3 localPos = spawnTransform.localPosition;
+        localPos.x = Mathf.Abs(localPos.x) * (isFacingRight ? 1 : -1); // Flip position across the x-axis
+        spawnTransform.localPosition = localPos;
     }
 
     public void Launch()
+{
+    // Get mouse position in world space
+    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = 0; // Ensure it's in the 2D plane
+
+    // Calculate the direction from the spawn position to the mouse
+    Vector2 direction = (mousePosition - spawnTransform.position).normalized;
+
+    // Adjust direction based on character facing direction
+    if (!isFacingRight)
     {
-        GameObject newProjectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
-        newProjectile.GetComponent<Rigidbody2D>().velocity = new Vector3(projectileSpeed, 0, 0);
-        Destroy(newProjectile, despawnTime);
+        direction.x = -Mathf.Abs(direction.x); // Ensure projectile direction respects facing
     }
+
+    // Create and launch the projectile
+    GameObject newProjectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
+    newProjectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+
+    // Destroy the projectile after some time
+    Destroy(newProjectile, despawnTime);
 }
+
+}
+

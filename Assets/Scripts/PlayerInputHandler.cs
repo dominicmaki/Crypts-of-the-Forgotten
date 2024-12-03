@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Sprite defaultRightSprite; // Sprite when pressing D (moving right)
     public Sprite defaultLeftSprite;  // Sprite when pressing A (moving left)
     private SpriteRenderer spriteRenderer;
+    public ProjectileLauncher launcher;
 
     private bool isFacingRight = true; // Track if the character is facing right
 
@@ -43,12 +44,14 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             movement += new Vector3(-1, 0, 0);
-            isFacingRight = false; // Facing left
+            isFacingRight = false;
+            FlipSprite(false); // Facing left
         }
         if (Input.GetKey(KeyCode.D))
         {
             movement += new Vector3(1, 0, 0);
-            isFacingRight = true; // Facing right
+            isFacingRight = true;
+            FlipSprite(true); // Facing right
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -105,20 +108,40 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     void Attack()
-    {
-        // Change to attack sprite based on facing direction
-        if (isFacingRight)
-            spriteRenderer.sprite = attackRightSprite;
-        else
-            spriteRenderer.sprite = attackLeftSprite;
+{
+    // Change to attack sprite based on facing direction
+    if (isFacingRight)
+        spriteRenderer.sprite = attackRightSprite;
+    else
+        spriteRenderer.sprite = attackLeftSprite;
 
-        // Optionally, reset to normal sprite after a short time to simulate an attack animation
-        Invoke("ResetSprite", 0.2f); // Reset sprite after 0.2 seconds (adjust as needed)
-    }
+    // Launch the projectile in the correct direction
+    launcher.SetFacingDirection(isFacingRight); // Pass the facing direction
+    launcher.Launch();
+
+    // Optionally, reset to normal sprite after a short time to simulate an attack animation
+    Invoke("ResetSprite", 0.2f); // Reset sprite after 0.2 seconds (adjust as needed)
+}
 
     void ResetSprite()
     {
         // Reset to the normal idle sprite
         SetSpriteForDirection(Vector3.zero); // Revert to facing sprite when idle
     }
+
+    void FlipSprite(bool isFacingRight)
+{
+    if (this.isFacingRight != isFacingRight)
+    {
+        Vector3 localScale = transform.localScale;
+        localScale.x = isFacingRight ? 1 : -1; // Flip the character's scale
+        transform.localScale = localScale;
+
+        this.isFacingRight = isFacingRight;
+
+        // Notify the ProjectileLauncher to flip the spawn point
+        launcher.SetFacingDirection(isFacingRight);
+    }
+}
+
 }

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7489466229104529697}
   - component: {fileID: 5428987091360659744}
-  - component: {fileID: 5089663585163004348}
   - component: {fileID: 8455450492110507615}
   - component: {fileID: 2315637551890910596}
   - component: {fileID: 7405325038277513618}
+  - component: {fileID: 6194456782734729400}
   m_Layer: 0
   m_Name: Rogue
   m_TagString: Character
@@ -89,20 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5089663585163004348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824150445372445663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8087342a92518e42b1fcb6f67cb9ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  projectileLauncher: {fileID: 8611885096603104232}
 --- !u!61 &8455450492110507615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -190,6 +176,20 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   gameOverScreen: {fileID: 0}
   healthText: {fileID: 0}
+--- !u!114 &6194456782734729400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824150445372445663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8087342a92518e42b1fcb6f67cb9ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  projectileLauncher: {fileID: 8611885096603104232}
 --- !u!1001 &6376962146194306985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 792007484544610294, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: m_Name
-      value: ProjectileLauncher (1)
+      value: ProjectileLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 2070093124933384680, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: m_LocalPosition.x
