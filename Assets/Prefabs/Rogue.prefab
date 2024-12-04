@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2315637551890910596}
   - component: {fileID: 7405325038277513618}
   - component: {fileID: 6194456782734729400}
+  - component: {fileID: 204404252889705352}
   m_Layer: 0
   m_Name: Rogue
   m_TagString: Character
@@ -190,6 +191,121 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   projectileLauncher: {fileID: 8611885096603104232}
+--- !u!114 &204404252889705352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824150445372445663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6185a4c7be72ea34993976a673cd376c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHP: 100
+  maxHealth: 100
+  playerAttackDamage: 10
+  fireRate: 0.5
+  equippedRing1: {fileID: 0}
+  equippedRing2: {fileID: 0}
+  equippedDagger: {fileID: 0}
+  equippedCloak: {fileID: 0}
+  totalHealthBonus: 0
+  totalAttackDamageBonus: 0
+--- !u!1 &861429362710990806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3899693950417784863}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3899693950417784863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861429362710990806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.299, y: 0.122, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1574800898269891566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3455129985841002557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5185366126807702349}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5185366126807702349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455129985841002557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.413, y: 0.122, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1574800898269891566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6293856985082413457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6130269090521414595}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6130269090521414595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293856985082413457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7442981, y: -0.024993721, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1574800898269891566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6376962146194306985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,6 +330,18 @@ PrefabInstance:
       propertyPath: despawnTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      propertyPath: spawnTransformUp
+      value: 
+      objectReference: {fileID: 5185366126807702349}
+    - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      propertyPath: spawnTransformDown
+      value: 
+      objectReference: {fileID: 3899693950417784863}
+    - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      propertyPath: spawnTransformRight
+      value: 
+      objectReference: {fileID: 4955639591222103617}
     - target: {fileID: 5594970865307614279, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.44964382
@@ -266,14 +394,32 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9220250378596076909, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      propertyPath: m_Name
+      value: ProjectileSpawnTransformRight
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5594970865307614279, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6130269090521414595}
+    - targetCorrespondingSourceObject: {fileID: 5594970865307614279, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3899693950417784863}
+    - targetCorrespondingSourceObject: {fileID: 5594970865307614279, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5185366126807702349}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
 --- !u!4 &1574800898269891566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5594970865307614279, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+  m_PrefabInstance: {fileID: 6376962146194306985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4955639591222103617 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2070093124933384680, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
   m_PrefabInstance: {fileID: 6376962146194306985}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8611885096603104232 stripped

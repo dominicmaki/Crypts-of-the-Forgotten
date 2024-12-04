@@ -6,13 +6,13 @@ public class InventoryUI : MonoBehaviour
 {
     public TMP_Text ring1Text;
     public TMP_Text ring2Text;
-    public TMP_Text wandText;
+    public TMP_Text daggerText;
     public TMP_Text cloakText;
     public TMP_Text statsText;
 
     public Image ring1Image;
     public Image ring2Image;
-    public Image wandImage;
+    public Image daggerImage;
     public Image cloakImage;
 
     private PlayerStats playerStats;
@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            // ring1Text.text = "Empty";
+            
             ring1Image.enabled = false; // Hide the sprite
         }
 
@@ -47,21 +47,21 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            // ring2Text.text = "Empty";
+            
             ring2Image.enabled = false;
         }
 
         // Wand
-        if (playerStats.equippedWand != null)
+        if (playerStats.equippedDagger != null)
         {
-            wandText.text = playerStats.equippedWand.itemName;
-            wandImage.sprite = playerStats.equippedWand.itemSprite;
-            wandImage.enabled = true;
+            daggerText.text = playerStats.equippedDagger.itemName;
+            daggerImage.sprite = playerStats.equippedDagger.itemSprite;
+            daggerImage.enabled = true;
         }
         else
         {
-            // wandText.text = "Empty";
-            wandImage.enabled = false;
+            
+            daggerImage.enabled = false;
         }
 
         // Cloak
@@ -73,7 +73,7 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            // cloakText.text = "Empty";
+            
             cloakImage.enabled = false;
         }
 

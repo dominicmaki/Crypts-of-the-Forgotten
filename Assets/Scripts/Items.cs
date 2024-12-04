@@ -3,7 +3,7 @@ using UnityEngine;
 public enum ItemType
 {
     Ring,
-    Wand,
+    Dagger,
     Cloak
 }
 
@@ -16,5 +16,6 @@ public class ItemSO : ScriptableObject
     public int attackDamageBonus;
     public string description;
     public ItemType itemType; 
+    public int fireRate;
 
 }

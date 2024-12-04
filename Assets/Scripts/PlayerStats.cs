@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
     // Equipped items
     public ItemSO equippedRing1; // First ring
     public ItemSO equippedRing2; // Second ring
-    public ItemSO equippedWand;  // Wand
+    public ItemSO equippedDagger;  // equippedDagger
     public ItemSO equippedCloak; // Cloak
 
     // Total bonuses from all items
@@ -78,15 +78,15 @@ public class PlayerStats : MonoBehaviour
                 }
                 break;
 
-            case ItemType.Wand:
-                if (equippedWand == null)
+            case ItemType.Dagger:
+                if (equippedDagger == null)
                 {
-                    equippedWand = item;
-                    Debug.Log($"Equipped Wand: {item.itemName}");
+                    equippedDagger = item;
+                    Debug.Log($"Equipped Dagger: {item.itemName}");
                 }
                 else
                 {
-                    Debug.LogWarning("Wand slot is already occupied!");
+                    Debug.LogWarning("Dagger slot is already occupied!");
                 }
                 break;
 
@@ -156,11 +156,11 @@ public class PlayerStats : MonoBehaviour
                 }
                 break;
 
-            case ItemType.Wand:
-                if (equippedWand == item)
+            case ItemType.Dagger:
+                if (equippedDagger == item)
                 {
-                    equippedWand = null;
-                    Debug.Log($"Unequipped Wand: {item.itemName}");
+                    equippedDagger = null;
+                    Debug.Log($"Unequipped Dagger: {item.itemName}");
                 }
                 break;
 
