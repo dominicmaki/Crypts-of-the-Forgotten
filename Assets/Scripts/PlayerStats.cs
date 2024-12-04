@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour
     public int playerHP = 100;            // Current health
     public int maxHealth = 100;           // Maximum health
     public int playerAttackDamage = 10;   // Base attack damage
+    [SerializeField] public float fireRate = 0.5f;
 
     // Equipped items
     public ItemSO equippedRing1; // First ring

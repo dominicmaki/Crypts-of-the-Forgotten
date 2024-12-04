@@ -10,15 +10,29 @@ public class MobSpawner : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, spawnInterval);  // Start spawning enemies periodically
+        if (spawnPoints.Length > 0)  // Check if spawn points are assigned
+        {
+            InvokeRepeating("SpawnEnemy", 0f, spawnInterval);  // Start spawning enemies periodically
+        }
+        else
+        {
+            Debug.LogError("No spawn points assigned to MobSpawner.");
+        }
     }
 
     void SpawnEnemy()
     {
-        // Randomly choose a spawn point
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        if (spawnPoints.Length > 0)
+        {
+            // Randomly choose a spawn point
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        // Instantiate a new enemy at the chosen spawn point
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            // Instantiate a new enemy at the chosen spawn point
+            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("No spawn points available to spawn enemies.");
+        }
     }
 }

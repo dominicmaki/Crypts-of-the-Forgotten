@@ -12,11 +12,23 @@ public class Mob : MonoBehaviour
     private PlayerStats playerStats; // Reference to the PlayerStats component
 
     void Start()
+{
+    currentHealth = maxHealth;
+    
+    // Automatically find the player in the scene
+    player = GameObject.FindWithTag("Character").transform;
+
+    // Ensure the player object is found before trying to get the PlayerStats component
+    if (player != null)
     {
-        currentHealth = maxHealth;
-        // Get the PlayerStats component from the player object
         playerStats = player.GetComponent<PlayerStats>();
     }
+    else
+    {
+        Debug.LogError("Player not found in the scene!");
+    }
+}
+
 
     void Update()
     {

@@ -62,7 +62,7 @@ public class PlayerInputHandler : MonoBehaviour
             movement += new Vector3(0, -1, 0);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetMouseButton(0))  // Left click (0 is the left mouse button)
         {
             Attack(); // Handle attack
         }
@@ -71,7 +71,7 @@ public class PlayerInputHandler : MonoBehaviour
         SetSpriteForDirection(movement);
 
         // If no movement keys are pressed and not attacking, revert to normal sprite
-        if (movement == Vector3.zero && !Input.GetKey(KeyCode.Space))
+        if (movement == Vector3.zero && !Input.GetMouseButton(0))
         {
             SetSpriteForDirection(Vector3.zero); // Reset sprite based on facing direction
         }
@@ -82,7 +82,7 @@ public class PlayerInputHandler : MonoBehaviour
     // Set sprite based on direction (up, down, left, right)
     void SetSpriteForDirection(Vector3 movement)
     {
-        if (movement == Vector3.zero && !Input.GetKey(KeyCode.Space)) 
+        if (movement == Vector3.zero && !Input.GetMouseButton(0)) 
         {
             // Idle state: Use facing sprite
             if (isFacingRight)
@@ -108,40 +108,46 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     void Attack()
-{
-    // Change to attack sprite based on facing direction
-    if (isFacingRight)
-        spriteRenderer.sprite = attackRightSprite;
-    else
-        spriteRenderer.sprite = attackLeftSprite;
+    {
+        // Change to attack sprite based on facing direction
+        if (isFacingRight)
+            spriteRenderer.sprite = attackRightSprite;
+        else
+            spriteRenderer.sprite = attackLeftSprite;
 
-    // Launch the projectile in the correct direction
-    launcher.SetFacingDirection(isFacingRight); // Pass the facing direction
-    launcher.Launch();
+        // Launch the projectile in the correct direction
+        launcher.SetFacingDirection(isFacingRight); // Pass the facing direction
+        launcher.Launch();
 
-    // Optionally, reset to normal sprite after a short time to simulate an attack animation
-    Invoke("ResetSprite", 0.2f); // Reset sprite after 0.2 seconds (adjust as needed)
-}
+        // Start the attack animation and then reset the sprite smoothly
+        StartCoroutine(ResetSpriteAfterDelay(0.2f)); // Adjust the delay as needed (0.2 seconds for example)
+    }
+
+    // Coroutine to reset sprite after a delay (smooth transition)
+    IEnumerator ResetSpriteAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);  // Wait for the duration of the attack animation
+        ResetSprite(); // Call ResetSprite after the delay
+    }
 
     void ResetSprite()
     {
-        // Reset to the normal idle sprite
+        // Reset to the normal idle sprite after the attack
         SetSpriteForDirection(Vector3.zero); // Revert to facing sprite when idle
     }
 
     void FlipSprite(bool isFacingRight)
-{
-    if (this.isFacingRight != isFacingRight)
     {
-        Vector3 localScale = transform.localScale;
-        localScale.x = isFacingRight ? 1 : -1; // Flip the character's scale
-        transform.localScale = localScale;
+        if (this.isFacingRight != isFacingRight)
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x = isFacingRight ? 1 : -1; // Flip the character's scale
+            transform.localScale = localScale;
 
-        this.isFacingRight = isFacingRight;
+            this.isFacingRight = isFacingRight;
 
-        // Notify the ProjectileLauncher to flip the spawn point
-        launcher.SetFacingDirection(isFacingRight);
+            // Notify the ProjectileLauncher to flip the spawn point
+            launcher.SetFacingDirection(isFacingRight);
+        }
     }
-}
-
 }
