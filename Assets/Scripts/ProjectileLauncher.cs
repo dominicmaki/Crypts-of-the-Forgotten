@@ -7,75 +7,87 @@ public class ProjectileLauncher : MonoBehaviour
     [Header("Config")]
     [SerializeField] float projectileSpeed = 3f;
     [SerializeField] GameObject projectilePrefab;
-    [SerializeField] Transform spawnTransform;
+    [SerializeField] Transform spawnTransformRight; // Spawn point for right-facing projectiles
+    [SerializeField] Transform spawnTransformUp;    // Spawn point for up-facing projectiles
+    [SerializeField] Transform spawnTransformDown;  // Spawn point for down-facing projectiles
     [SerializeField] float despawnTime = 4f;
 
     private bool isFacingRight = true;
-    
-    // Fire rate control variables
-    private float timeSinceLastShot = 0f;  // Time passed since the last shot
-    private float fireRate = 0.2f;  // Default fire rate (can be set by PlayerStats)
+    private bool isFacingUp = false;
+    private bool isFacingDown = false;
 
-    // Reference to the PlayerStats singleton
+    private float timeSinceLastShot = 0f;
+    private float fireRate = 0.2f;
+
     public PlayerStats playerStats;
 
     void Start()
     {
-        // Get the fireRate from PlayerStats if available
         if (playerStats != null)
         {
-            fireRate = playerStats.fireRate;  // Set fire rate from PlayerStats
+            fireRate = playerStats.fireRate;
         }
     }
 
-    public void SetFacingDirection(bool facingRight)
+    /// <summary>
+    /// Sets the character's facing direction and flips the spawn point if necessary.
+    /// </summary>
+    public void SetFacingDirection(bool facingRight, bool facingUp, bool facingDown)
     {
-        if (isFacingRight != facingRight)
+        isFacingRight = facingRight;
+        isFacingUp = facingUp;
+        isFacingDown = facingDown;
+
+        // Flip the horizontal spawn point for left/right direction
+        if (!facingUp && !facingDown)
         {
-            isFacingRight = facingRight;
-            FlipSpawnTransform();
+            FlipSpawnTransformHorizontal();
         }
     }
 
-    private void FlipSpawnTransform()
+    /// <summary>
+    /// Flips the spawn transform for horizontal movement (left/right).
+    /// </summary>
+    private void FlipSpawnTransformHorizontal()
     {
-        Vector3 localPos = spawnTransform.localPosition;
-        localPos.x = Mathf.Abs(localPos.x) * (isFacingRight ? 1 : -1); // Flip position across the x-axis
-        spawnTransform.localPosition = localPos;
+        if (spawnTransformRight != null)
+        {
+            Vector3 localPos = spawnTransformRight.localPosition;
+            localPos.x = Mathf.Abs(localPos.x) * (isFacingRight ? 1 : -1);
+            spawnTransformRight.localPosition = localPos;
+        }
     }
 
+    /// <summary>
+    /// Launches a projectile in the direction based on the character's facing direction.
+    /// </summary>
     public void Launch()
     {
-        // Update the timer for the fire rate
         timeSinceLastShot += Time.deltaTime;
 
-        // Check if enough time has passed to launch a new projectile
         if (timeSinceLastShot >= fireRate)
         {
-            // Reset the timer
             timeSinceLastShot = 0f;
 
-            // Get mouse position in world space
+            // Determine which spawn point to use
+            Transform selectedSpawnTransform = spawnTransformRight; // Default to right-facing
+            if (isFacingUp && spawnTransformUp != null) selectedSpawnTransform = spawnTransformUp;
+            else if (isFacingDown && spawnTransformDown != null) selectedSpawnTransform = spawnTransformDown;
+
+            // Calculate projectile direction towards the mouse
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0; // Ensure it's in the 2D plane
+            mousePosition.z = 0;
 
-            // Calculate the direction from the spawn position to the mouse
-            Vector2 direction = (mousePosition - spawnTransform.position).normalized;
+            Vector2 direction = (mousePosition - selectedSpawnTransform.position).normalized;
 
-            // If the character is facing left, adjust the projectile direction
-            if (!isFacingRight)
-            {
-                direction.x = -Mathf.Abs(direction.x); // Ensure projectile direction respects facing
-            }
+            // Instantiate the projectile
+            GameObject newProjectile = Instantiate(projectilePrefab, selectedSpawnTransform.position, Quaternion.identity);
 
-            // Create and launch the projectile
-            GameObject newProjectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
-            
-            // Set the damage of the projectile to the player's attack damage
+            // Assign damage to the projectile from player stats
             Projectile projectileScript = newProjectile.GetComponent<Projectile>();
             if (projectileScript != null && playerStats != null)
             {
-                projectileScript.damage = playerStats.playerAttackDamage;  // Assign the player's attack damage to the projectile
+                projectileScript.damage = playerStats.playerAttackDamage;
             }
 
             // Apply velocity to the projectile
@@ -85,7 +97,7 @@ public class ProjectileLauncher : MonoBehaviour
                 rb.velocity = direction * projectileSpeed;
             }
 
-            // Optionally, destroy the projectile after some time
+            // Destroy the projectile after a set time
             Destroy(newProjectile, despawnTime);
         }
     }

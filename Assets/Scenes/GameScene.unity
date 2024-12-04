@@ -122,6 +122,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21799932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 21799933}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &21799933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21799932}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7442981, y: -0.024993721, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744364970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &43107586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1439,6 +1470,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250964878}
   m_CullTransparentMesh: 1
+--- !u!4 &253860556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4955639591222103617, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+  m_PrefabInstance: {fileID: 4192443422851262494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &262966475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3565,6 +3601,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1904575962278832498, guid: d2c55ff827fe5944f8ce2973be4c90f5, type: 3}
   m_PrefabInstance: {fileID: 703829401}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &725942455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725942456}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &725942456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725942455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.413, y: 0.122, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744364970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &742364250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3642,6 +3709,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742364250}
   m_CullTransparentMesh: 1
+--- !u!4 &744364970 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1574800898269891566, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+  m_PrefabInstance: {fileID: 4192443422851262494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &756176157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7608,6 +7680,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1904575962278832498, guid: d2c55ff827fe5944f8ce2973be4c90f5, type: 3}
   m_PrefabInstance: {fileID: 1618943549}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1654068084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654068085}
+  m_Layer: 0
+  m_Name: ProjectileSpawnTransformDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1654068085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654068084}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.299, y: 0.122, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744364970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1679870894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8884,6 +8987,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rogue
       objectReference: {fileID: 0}
+    - target: {fileID: 2849491685663537860, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      propertyPath: m_Name
+      value: ProjectileSpawnTransformRight
+      objectReference: {fileID: 0}
     - target: {fileID: 7405325038277513618, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
       propertyPath: healthBar
       value: 
@@ -8936,9 +9043,30 @@ PrefabInstance:
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 624733508}
+    - target: {fileID: 8611885096603104232, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      propertyPath: spawnTransformUp
+      value: 
+      objectReference: {fileID: 725942456}
+    - target: {fileID: 8611885096603104232, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      propertyPath: spawnTransformDown
+      value: 
+      objectReference: {fileID: 1654068085}
+    - target: {fileID: 8611885096603104232, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      propertyPath: spawnTransformRight
+      value: 
+      objectReference: {fileID: 253860556}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1574800898269891566, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 21799933}
+    - targetCorrespondingSourceObject: {fileID: 1574800898269891566, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1654068085}
+    - targetCorrespondingSourceObject: {fileID: 1574800898269891566, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 725942456}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 824150445372445663, guid: 8a8cf0d5ba7df4a41aee2c55632532b1, type: 3}
       insertIndex: -1

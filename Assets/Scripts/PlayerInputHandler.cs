@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,6 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public float moveAmount = 1.0f;
     private Vector3 targetPosition; // Target position sprite will move to
-    private Vector3 mousePosition;
     [SerializeField] Character character;
     public float rotationSpeed = 700f; // Speed of rotation when moving
     public Sprite normalSprite; // The normal idle sprite
@@ -20,6 +18,8 @@ public class PlayerInputHandler : MonoBehaviour
     public ProjectileLauncher launcher;
 
     private bool isFacingRight = true; // Track if the character is facing right
+    private bool isFacingUp = false;  // Track if the character is facing up
+    private bool isFacingDown = false; // Track if the character is facing down
 
     // Start is called before the first frame update
     void Start()
@@ -31,123 +31,96 @@ public class PlayerInputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move the character towards the mouse position
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0; // Ensure the Z position remains the same
-
-        // Move character towards the mouse position smoothly
-        targetPosition = Vector3.MoveTowards(transform.position, mousePosition, moveAmount * Time.deltaTime);
-        transform.position = targetPosition;
-
         Vector3 movement = Vector3.zero;
+
         // Handle movement inputs
         if (Input.GetKey(KeyCode.A))
         {
             movement += new Vector3(-1, 0, 0);
-            isFacingRight = false;
-            FlipSprite(false); // Facing left
+            SetFacingDirection(false, false, false); // Facing left
         }
         if (Input.GetKey(KeyCode.D))
         {
             movement += new Vector3(1, 0, 0);
-            isFacingRight = true;
-            FlipSprite(true); // Facing right
+            SetFacingDirection(true, false, false); // Facing right
         }
         if (Input.GetKey(KeyCode.W))
         {
             movement += new Vector3(0, 1, 0);
+            SetFacingDirection(false, true, false); // Facing up
         }
         if (Input.GetKey(KeyCode.S))
         {
             movement += new Vector3(0, -1, 0);
+            SetFacingDirection(false, false, true); // Facing down
         }
 
-        if (Input.GetMouseButton(0))  // Left click (0 is the left mouse button)
+        if (Input.GetMouseButton(0)) // Left click (0 is the left mouse button)
         {
             Attack(); // Handle attack
         }
 
-        // Determine the direction of movement and set sprite accordingly
-        SetSpriteForDirection(movement);
-
-        // If no movement keys are pressed and not attacking, revert to normal sprite
-        if (movement == Vector3.zero && !Input.GetMouseButton(0))
-        {
-            SetSpriteForDirection(Vector3.zero); // Reset sprite based on facing direction
-        }
-
+        // Update the character's movement
         character.Move(movement);
-    }
-
-    // Set sprite based on direction (up, down, left, right)
-    void SetSpriteForDirection(Vector3 movement)
-    {
-        if (movement == Vector3.zero && !Input.GetMouseButton(0)) 
-        {
-            // Idle state: Use facing sprite
-            if (isFacingRight)
-                spriteRenderer.sprite = normalSprite;
-            else
-                spriteRenderer.sprite = normalSprite; // (optional: a different idle sprite for left-facing)
-        }
-        else if (movement.y > 0) // Moving up (W)
-        {
-            spriteRenderer.sprite = normalBackSprite;
-        }
-        else if (movement.y < 0) // Moving down (S)
-        {
-            spriteRenderer.sprite = normalSprite;
-        }
-        else if (movement.x != 0) // Moving left or right (A/D)
-        {
-            if (isFacingRight)
-                spriteRenderer.sprite = defaultRightSprite;
-            else
-                spriteRenderer.sprite = defaultLeftSprite;
-        }
     }
 
     void Attack()
     {
-        // Change to attack sprite based on facing direction
+        // Launch the projectile in the current direction
+        launcher.Launch();
+
+        // Change to attack sprite based on facing direction during attack
         if (isFacingRight)
             spriteRenderer.sprite = attackRightSprite;
+        else if (isFacingUp)
+            spriteRenderer.sprite = normalBackSprite; // Example for attacking up
+        else if (isFacingDown)
+            spriteRenderer.sprite = normalSprite; // Example for attacking down
         else
             spriteRenderer.sprite = attackLeftSprite;
 
-        // Launch the projectile in the correct direction
-        launcher.SetFacingDirection(isFacingRight); // Pass the facing direction
-        launcher.Launch();
-
-        // Start the attack animation and then reset the sprite smoothly
-        StartCoroutine(ResetSpriteAfterDelay(0.2f)); // Adjust the delay as needed (0.2 seconds for example)
+        // Keep the attack sprite until next movement input
     }
 
-    // Coroutine to reset sprite after a delay (smooth transition)
-    IEnumerator ResetSpriteAfterDelay(float delay)
+    void SetFacingDirection(bool facingRight, bool facingUp, bool facingDown)
     {
-        yield return new WaitForSeconds(delay);  // Wait for the duration of the attack animation
-        ResetSprite(); // Call ResetSprite after the delay
-    }
+        isFacingRight = facingRight;
+        isFacingUp = facingUp;
+        isFacingDown = facingDown;
 
-    void ResetSprite()
-    {
-        // Reset to the normal idle sprite after the attack
-        SetSpriteForDirection(Vector3.zero); // Revert to facing sprite when idle
-    }
+        // Update the launcher with the current facing direction
+        launcher.SetFacingDirection(facingRight, facingUp, facingDown);
 
-    void FlipSprite(bool isFacingRight)
-    {
-        if (this.isFacingRight != isFacingRight)
+        // Flip sprite horizontally for left/right
+        if (facingRight || !facingRight)
         {
             Vector3 localScale = transform.localScale;
-            localScale.x = isFacingRight ? 1 : -1; // Flip the character's scale
+            localScale.x = facingRight ? 1 : -1;
             transform.localScale = localScale;
+        }
 
-            this.isFacingRight = isFacingRight;
+        // Set sprite based on facing direction
+        SetFacingSprite();
+    }
 
-            // Notify the ProjectileLauncher to flip the spawn point
-            launcher.SetFacingDirection(isFacingRight);
+    void SetFacingSprite()
+    {
+        // Use the appropriate sprite based on the current facing direction
+        if (isFacingUp)
+        {
+            spriteRenderer.sprite = normalBackSprite;
+        }
+        else if (isFacingDown)
+        {
+            spriteRenderer.sprite = normalSprite;
+        }
+        else if (isFacingRight)
+        {
+            spriteRenderer.sprite = defaultRightSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = defaultLeftSprite;
         }
     }
 }
