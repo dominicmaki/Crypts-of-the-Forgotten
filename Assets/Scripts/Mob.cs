@@ -6,29 +6,28 @@ public class Mob : MonoBehaviour
 {
     public int maxHealth = 50;  // Maximum health
     public int currentHealth;   // Current health
-    public int attackDamage = 5; // Damage dealt to the player
+    public int attackDamage = 5; // Damage dealt to the player (when Mob attacks)
     public float moveSpeed = 2f;  // Movement speed
     public Transform player;    // Reference to the player's position (to follow or attack)
     private PlayerStats playerStats; // Reference to the PlayerStats component
 
     void Start()
-{
-    currentHealth = maxHealth;
-    
-    // Automatically find the player in the scene
-    player = GameObject.FindWithTag("Character").transform;
-
-    // Ensure the player object is found before trying to get the PlayerStats component
-    if (player != null)
     {
-        playerStats = player.GetComponent<PlayerStats>();
-    }
-    else
-    {
-        Debug.LogError("Player not found in the scene!");
-    }
-}
+        currentHealth = maxHealth;
 
+        // Automatically find the player in the scene
+        player = GameObject.FindWithTag("Character").transform;
+
+        // Ensure the player object is found before trying to get the PlayerStats component
+        if (player != null)
+        {
+            playerStats = player.GetComponent<PlayerStats>();
+        }
+        else
+        {
+            Debug.LogError("Player not found in the scene!");
+        }
+    }
 
     void Update()
     {
@@ -75,25 +74,31 @@ public class Mob : MonoBehaviour
 
     // Optionally, you can make the enemy attack the player if they are close enough
     public void AttackPlayer()
-{
-    if (Vector3.Distance(transform.position, player.position) < 1.5f)
     {
-        // Get the player's damage value (considering item bonuses)
-        int damage = playerStats.playerAttackDamage;
-        playerStats.TakeDamage(damage); // Apply the damage to the player
+        if (Vector3.Distance(transform.position, player.position) < 1.5f)
+        {
+            // Get the player's damage value (considering item bonuses)
+            int damage = playerStats.playerAttackDamage;
+            playerStats.TakeDamage(damage); // Apply the damage to the player
+        }
     }
-}
 
-    // Handle collision with projectiles
+    // Handle collision with projectiles and player
     void OnCollisionEnter2D(Collision2D collision)
-{
-    if (collision.gameObject.CompareTag("Projectile"))
     {
-        Debug.Log("Projectile hit the Mob!");
-        TakeDamage(collision.gameObject.GetComponent<Projectile>().damage);
-        Destroy(collision.gameObject);  // Destroy the projectile on impact
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            // Mob takes damage from the projectile
+            TakeDamage(collision.gameObject.GetComponent<Projectile>().damage);
+            Destroy(collision.gameObject);  // Destroy the projectile on impact
+        }
+
+        // Check if the Mob collides with the player
+        if (collision.gameObject.CompareTag("Character"))
+        {
+            // Mob deals 10 damage to the player
+            playerStats.TakeDamage(10);
+            Debug.Log("Mob collided with player and dealt 10 damage!");
+        }
     }
 }
-
-}
-
