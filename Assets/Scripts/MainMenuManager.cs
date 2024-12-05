@@ -11,10 +11,6 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("LobbyScene");
     }
 
-    public void Settings(){
-        SceneManager.LoadScene("Settings");
-    }
-
     public void QuitGame(){
         Debug.Log("QUIT");
         #if UNITY_EDITOR
