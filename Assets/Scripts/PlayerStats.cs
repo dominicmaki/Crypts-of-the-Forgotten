@@ -50,66 +50,68 @@ public class PlayerStats : MonoBehaviour
     }
 
     // Method to equip an item
-    public void EquipItem(ItemSO item)
+    // Equip item method (already provided, ensuring stats are updated)
+public void EquipItem(ItemSO item)
+{
+    if (item == null) return;
+
+    // Update total bonuses when an item is equipped
+    if (item.hpBonus > 0) totalHealthBonus += item.hpBonus;
+    if (item.attackDamageBonus > 0) totalAttackDamageBonus += item.attackDamageBonus;
+
+    // Equip item to the appropriate slot
+    switch (item.itemType)
     {
-        if (item == null) return;
+        case ItemType.Ring:
+            if (equippedRing1 == null)
+            {
+                equippedRing1 = item;
+                Debug.Log($"Equipped in Ring Slot 1: {item.itemName}");
+            }
+            else if (equippedRing2 == null)
+            {
+                equippedRing2 = item;
+                Debug.Log($"Equipped in Ring Slot 2: {item.itemName}");
+            }
+            else
+            {
+                Debug.LogWarning("Both ring slots are already occupied!");
+            }
+            break;
 
-        // Update total bonuses when an item is equipped
-        if (item.hpBonus > 0) totalHealthBonus += item.hpBonus;
-        if (item.attackDamageBonus > 0) totalAttackDamageBonus += item.attackDamageBonus;
+        case ItemType.Dagger:
+            if (equippedDagger == null)
+            {
+                equippedDagger = item;
+                Debug.Log($"Equipped Dagger: {item.itemName}");
+            }
+            else
+            {
+                Debug.LogWarning("Dagger slot is already occupied!");
+            }
+            break;
 
-        // Equip item to the appropriate slot
-        switch (item.itemType)
-        {
-            case ItemType.Ring:
-                if (equippedRing1 == null)
-                {
-                    equippedRing1 = item;
-                    Debug.Log($"Equipped in Ring Slot 1: {item.itemName}");
-                }
-                else if (equippedRing2 == null)
-                {
-                    equippedRing2 = item;
-                    Debug.Log($"Equipped in Ring Slot 2: {item.itemName}");
-                }
-                else
-                {
-                    Debug.LogWarning("Both ring slots are already occupied!");
-                }
-                break;
+        case ItemType.Cloak:
+            if (equippedCloak == null)
+            {
+                equippedCloak = item;
+                Debug.Log($"Equipped Cloak: {item.itemName}");
+            }
+            else
+            {
+                Debug.LogWarning("Cloak slot is already occupied!");
+            }
+            break;
 
-            case ItemType.Dagger:
-                if (equippedDagger == null)
-                {
-                    equippedDagger = item;
-                    Debug.Log($"Equipped Dagger: {item.itemName}");
-                }
-                else
-                {
-                    Debug.LogWarning("Dagger slot is already occupied!");
-                }
-                break;
-
-            case ItemType.Cloak:
-                if (equippedCloak == null)
-                {
-                    equippedCloak = item;
-                    Debug.Log($"Equipped Cloak: {item.itemName}");
-                }
-                else
-                {
-                    Debug.LogWarning("Cloak slot is already occupied!");
-                }
-                break;
-
-            default:
-                Debug.LogWarning("Invalid item type!");
-                break;
-        }
-
-        // Update stats after equipping the item
-        UpdateStats();
+        default:
+            Debug.LogWarning("Invalid item type!");
+            break;
     }
+
+    // Update stats after equipping the item
+    UpdateStats();
+}
+
 
     private void UpdateStats()
     {
