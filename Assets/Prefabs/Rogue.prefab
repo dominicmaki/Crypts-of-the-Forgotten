@@ -213,6 +213,7 @@ MonoBehaviour:
   equippedCloak: {fileID: 0}
   totalHealthBonus: 0
   totalAttackDamageBonus: 0
+  hurtSound: {fileID: 8300000, guid: b204cc425de08414c80b1673278a7576, type: 3}
 --- !u!1 &861429362710990806
 GameObject:
   m_ObjectHideFlags: 0

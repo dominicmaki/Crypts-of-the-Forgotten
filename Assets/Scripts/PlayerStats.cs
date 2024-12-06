@@ -20,6 +20,9 @@ public class PlayerStats : MonoBehaviour
     public int totalAttackDamageBonus = 0;  // Total attack damage bonus from all items
 
     private HealthBar healthBar; // Reference to the HealthBar
+    // Hurt sound
+    public AudioClip hurtSound; // Assign the hurt sound clip in the Inspector
+    private AudioSource audioSource; // AudioSource to play the hurt sound
 
     void Awake()
     {
@@ -35,6 +38,13 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        // Get or add an AudioSource component
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        
         // Find the HealthBar component in the scene
         healthBar = FindObjectOfType<HealthBar>();
 
@@ -188,6 +198,12 @@ public void EquipItem(ItemSO item)
     {
         playerHP -= damage;
         playerHP = Mathf.Max(0, playerHP);  // Ensure health doesn't go below 0
+
+        // Play hurt sound
+        if (hurtSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hurtSound);
+        }
 
         // Update the health bar after damage
         if (healthBar != null)
