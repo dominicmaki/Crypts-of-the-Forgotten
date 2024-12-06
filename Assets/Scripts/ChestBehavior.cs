@@ -22,64 +22,96 @@ public class ChestBehavior : MonoBehaviour
 
     public Button equipButton; // Reference to the equip button (for dynamic interaction)
 
+    // Audio variables
+    public AudioClip sound;  // Sound for opening the chest
+    private AudioSource audioSource; // Reference to AudioSource component
+
     void Start()
+{
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    playerStats = FindObjectOfType<PlayerStats>();
+
+    // Try to get the AudioSource component
+    audioSource = GetComponent<AudioSource>();
+    
+    // Check if audioSource is missing and add a default AudioSource if necessary
+    if (audioSource == null)
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        playerStats = FindObjectOfType<PlayerStats>();
-
-        // Get references to UI components from chestContents in the hierarchy
-        itemImage = chestContents.transform.Find("itemImage").GetComponent<Image>();
-        itemNameText = chestContents.transform.Find("itemName").GetComponent<TMP_Text>();
-        itemStatsText = chestContents.transform.Find("itemStats").GetComponent<TMP_Text>();
-        itemDescriptionText = chestContents.transform.Find("itemDescriptionText").GetComponent<TMP_Text>();
-
-        // Get the equip button and assign the EquipItem method
-        equipButton.onClick.AddListener(EquipItem);
-
-        // Randomly select an item from the list
-        selectedItem = possibleItems[Random.Range(0, possibleItems.Length)];
-
-        // Update UI with the selected item's details
-        UpdateItemUI();
-
-        // Initially hide the chest contents
-        chestContents.SetActive(false);
+        Debug.LogWarning("AudioSource component not found. Adding AudioSource component.");
+        audioSource = gameObject.AddComponent<AudioSource>();  // Add AudioSource if missing
     }
 
-    void OnMouseDown()
+    // Get references to UI components from chestContents in the hierarchy
+    itemImage = chestContents.transform.Find("itemImage").GetComponent<Image>();
+    itemNameText = chestContents.transform.Find("itemName").GetComponent<TMP_Text>();
+    itemStatsText = chestContents.transform.Find("itemStats").GetComponent<TMP_Text>();
+    itemDescriptionText = chestContents.transform.Find("itemDescriptionText").GetComponent<TMP_Text>();
+
+    // Get the equip button and assign the EquipItem method
+    equipButton.onClick.AddListener(EquipItem);
+
+    // Randomly select an item from the list
+    selectedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+
+    // Update UI with the selected item's details
+    UpdateItemUI();
+
+    // Initially hide the chest contents
+    chestContents.SetActive(false);
+
+    // Debugging to check if Start() is being called
+    Debug.Log("Start() called - Audio should not play yet.");
+}
+
+
+void OnMouseDown()
+{
+    if (isOpened)
     {
-        if (isOpened)
-        {
-            CloseChest(); // If chest is open, close it
-        }
-        else
-        {
-            OpenChest(); // If chest is closed, open it
-        }
+        CloseChest(); // If chest is open, close it
+    }
+    else
+    {
+        OpenChest(); // If chest is closed, open it
+    }
+}
+
+void OpenChest()
+{
+    // Change the sprite to the open chest
+    spriteRenderer.sprite = openChestSprite;
+
+    // Show the chest contents UI
+    chestContents.SetActive(true);
+    UpdateItemUI(); // Update the UI with item details
+
+    // Play the open chest sound
+    if (audioSource != null && sound != null)
+    {
+        audioSource.PlayOneShot(sound); // Use PlayOneShot to play sound once
     }
 
-    void OpenChest()
+    isOpened = true; // Mark the chest as opened
+}
+
+void CloseChest()
+{
+    // Change the sprite back to the closed chest
+    spriteRenderer.sprite = closedChestSprite;
+
+    // Hide the chest contents UI
+    chestContents.SetActive(false);
+
+    // Play the close chest sound
+    if (audioSource != null && sound != null)
     {
-        // Change the sprite to the open chest
-        spriteRenderer.sprite = openChestSprite;
-
-        // Show the chest contents UI
-        chestContents.SetActive(true);
-        UpdateItemUI(); // Update the UI with item details
-
-        isOpened = true; // Mark the chest as opened
+        audioSource.PlayOneShot(sound); // Play sound when closing the chest
     }
 
-    void CloseChest()
-    {
-        // Change the sprite back to the closed chest
-        spriteRenderer.sprite = closedChestSprite;
+    isOpened = false; // Mark the chest as closed
+}
 
-        // Hide the chest contents UI
-        chestContents.SetActive(false);
 
-        isOpened = false; // Mark the chest as closed
-    }
 
     void UpdateItemUI()
     {

@@ -11,6 +11,7 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] Transform spawnTransformUp;    // Spawn point for up-facing projectiles
     [SerializeField] Transform spawnTransformDown;  // Spawn point for down-facing projectiles
     [SerializeField] float despawnTime = 4f;
+    [SerializeField] AudioClip weaponSound; // Reference to the weapon sound to play
 
     private bool isFacingRight = true;
     private bool isFacingUp = false;
@@ -20,12 +21,21 @@ public class ProjectileLauncher : MonoBehaviour
     private float fireRate = 0.2f;
 
     public PlayerStats playerStats;
+    private AudioSource audioSource; // AudioSource for playing weapon sound
 
     void Start()
     {
         if (playerStats != null)
         {
             fireRate = playerStats.fireRate;
+        }
+
+        // Get the AudioSource component attached to this GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            // If no AudioSource is found, add one
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
 
@@ -99,6 +109,12 @@ public class ProjectileLauncher : MonoBehaviour
 
             // Destroy the projectile after a set time
             Destroy(newProjectile, despawnTime);
+
+            // Play the weapon sound when the projectile is launched
+            if (weaponSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(weaponSound);
+            }
         }
     }
 }

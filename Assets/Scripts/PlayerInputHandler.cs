@@ -55,7 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
             SetFacingDirection(false, false, true); // Facing down
         }
 
-        if (Input.GetMouseButton(0)) // Left click (0 is the left mouse button)
+        if (Input.GetMouseButton(1)) // Left click (0 is the left mouse button)
         {
             Attack(); // Handle attack
         }
