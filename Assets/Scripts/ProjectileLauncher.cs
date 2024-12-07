@@ -18,7 +18,7 @@ public class ProjectileLauncher : MonoBehaviour
     private bool isFacingDown = false;
 
     private float timeSinceLastShot = 0f;
-    private float fireRate = 0.2f;
+    [SerializeField] private float fireRate = 0.2f;
 
     public PlayerStats playerStats;
     private AudioSource audioSource; // AudioSource for playing weapon sound

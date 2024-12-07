@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f886581affb40ec4db9401b624eed4ef, type: 3}
+  m_Name: Minotaur
+  m_EditorClassIdentifier: 
+  mobPrefab: {fileID: 7572362931703702171, guid: ed7b151b9d362c64ba64e0037cafe521, type: 3}
+  maxHealth: 50
+  attackDamage: 20
+  moveSpeed: 4
+  deathSound: {fileID: 0}

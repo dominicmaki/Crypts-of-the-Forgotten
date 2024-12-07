@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
-    public int maxHealth = 50;  // Maximum health
-    public int currentHealth;   // Current health
-    public int attackDamage = 5; // Damage dealt to the player (when Mob attacks)
-    public float moveSpeed = 2f;  // Movement speed
-    public Transform player;    // Reference to the player's position (to follow or attack)
+    public MobSO mobData;  // Reference to the Mob ScriptableObject (for mob variation)
+
+    private int currentHealth;  // Current health
     private PlayerStats playerStats; // Reference to the PlayerStats component
+    private Transform player;  // Reference to the player's position (to follow or attack)
 
     void Start()
     {
-        currentHealth = maxHealth;
+        // If mobData is assigned, initialize attributes
+        if (mobData != null)
+        {
+            InitializeMobAttributes();
+        }
+        else
+        {
+            Debug.LogError("Mob data (MobSO) is not assigned!");
+            return;
+        }
 
         // Automatically find the player in the scene
         player = GameObject.FindWithTag("Character").transform;
@@ -29,10 +37,19 @@ public class Mob : MonoBehaviour
         }
     }
 
+    // Initialize or reset mob attributes based on the MobSO
+    public void InitializeMobAttributes()
+    {
+        if (mobData != null)
+        {
+            currentHealth = mobData.maxHealth; // Set initial health from the ScriptableObject
+        }
+    }
+
     void Update()
     {
         // Basic behavior: Move towards the player
-        if (player != null)
+        if (player != null && mobData != null)
         {
             MoveTowardsPlayer();
         }
@@ -47,8 +64,11 @@ public class Mob : MonoBehaviour
     // Move the enemy towards the player
     void MoveTowardsPlayer()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        if (mobData != null)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            transform.Translate(direction * mobData.moveSpeed * Time.deltaTime);
+        }
     }
 
     // Deal damage to the enemy
@@ -70,15 +90,22 @@ public class Mob : MonoBehaviour
 
         // Destroy the enemy object
         Destroy(gameObject);
+
+        // Play death sound (if available in MobSO)
+        /*
+        if (mobData != null && mobData.deathSound != null)
+        {
+            AudioSource.PlayClipAtPoint(mobData.deathSound, transform.position);
+        }*/
     }
 
     // Optionally, you can make the enemy attack the player if they are close enough
     public void AttackPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < 1.5f)
+        if (Vector3.Distance(transform.position, player.position) < 1.5f && playerStats != null)
         {
             // Get the player's damage value (considering item bonuses)
-            int damage = playerStats.playerAttackDamage;
+            int damage = mobData.attackDamage;  // Use attackDamage from MobSO
             playerStats.TakeDamage(damage); // Apply the damage to the player
         }
     }
@@ -96,9 +123,8 @@ public class Mob : MonoBehaviour
         // Check if the Mob collides with the player
         if (collision.gameObject.CompareTag("Character"))
         {
-            // Mob deals 10 damage to the player
-            playerStats.TakeDamage(10);
-            Debug.Log("Mob collided with player and dealt 10 damage!");
+            // Mob deals damage to the player (using MobSO attack damage)
+            AttackPlayer();
         }
     }
 }

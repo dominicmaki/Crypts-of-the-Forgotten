@@ -63,25 +63,25 @@ public class PlayerStats : MonoBehaviour
     // Equip item method (already provided, ensuring stats are updated)
 public void EquipItem(ItemSO item)
 {
-    if (item == null) return;
+    if (item == null)
+    {
+        Debug.LogWarning("Attempted to equip a null item!");
+        return;
+    }
 
-    // Update total bonuses when an item is equipped
-    if (item.hpBonus > 0) totalHealthBonus += item.hpBonus;
-    if (item.attackDamageBonus > 0) totalAttackDamageBonus += item.attackDamageBonus;
+    // Debug: Show which item is being equipped
+    Debug.Log($"Equipping item: {item.itemName}");
 
-    // Equip item to the appropriate slot
     switch (item.itemType)
     {
         case ItemType.Ring:
             if (equippedRing1 == null)
             {
                 equippedRing1 = item;
-                Debug.Log($"Equipped in Ring Slot 1: {item.itemName}");
             }
             else if (equippedRing2 == null)
             {
                 equippedRing2 = item;
-                Debug.Log($"Equipped in Ring Slot 2: {item.itemName}");
             }
             else
             {
@@ -93,7 +93,6 @@ public void EquipItem(ItemSO item)
             if (equippedDagger == null)
             {
                 equippedDagger = item;
-                Debug.Log($"Equipped Dagger: {item.itemName}");
             }
             else
             {
@@ -105,7 +104,6 @@ public void EquipItem(ItemSO item)
             if (equippedCloak == null)
             {
                 equippedCloak = item;
-                Debug.Log($"Equipped Cloak: {item.itemName}");
             }
             else
             {
@@ -114,13 +112,13 @@ public void EquipItem(ItemSO item)
             break;
 
         default:
-            Debug.LogWarning("Invalid item type!");
+            Debug.LogWarning($"Unknown item type: {item.itemType}");
             break;
     }
 
-    // Update stats after equipping the item
     UpdateStats();
 }
+
 
 
     private void UpdateStats()

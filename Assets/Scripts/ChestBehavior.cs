@@ -30,69 +30,99 @@ public class ChestBehavior : MonoBehaviour
 {
     spriteRenderer = GetComponent<SpriteRenderer>();
     playerStats = FindObjectOfType<PlayerStats>();
-
-    // Try to get the AudioSource component
-    audioSource = GetComponent<AudioSource>();
-    
-    // Check if audioSource is missing and add a default AudioSource if necessary
-    if (audioSource == null)
-    {
-        Debug.LogWarning("AudioSource component not found. Adding AudioSource component.");
-        audioSource = gameObject.AddComponent<AudioSource>();  // Add AudioSource if missing
-    }
+    audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
 
     // Get references to UI components from chestContents in the hierarchy
     itemImage = chestContents.transform.Find("itemImage").GetComponent<Image>();
     itemNameText = chestContents.transform.Find("itemName").GetComponent<TMP_Text>();
     itemStatsText = chestContents.transform.Find("itemStats").GetComponent<TMP_Text>();
     itemDescriptionText = chestContents.transform.Find("itemDescriptionText").GetComponent<TMP_Text>();
+    equipButton.onClick.RemoveAllListeners(); // Remove previous listeners
+    equipButton.onClick.AddListener(() => EquipItem()); // Add the current chest's listener
 
-    // Get the equip button and assign the EquipItem method
-    equipButton.onClick.AddListener(EquipItem);
 
     // Randomly select an item from the list
-    selectedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+    if (possibleItems != null && possibleItems.Length > 0)
+    {
+        selectedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+        Debug.Log($"Chest '{name}' selected item: {selectedItem.itemName}");
+    }
+    else
+    {
+        Debug.LogWarning($"Chest '{name}' has no possible items!");
+    }
 
-    // Update UI with the selected item's details
     UpdateItemUI();
-
-    // Initially hide the chest contents
     chestContents.SetActive(false);
-
-    // Debugging to check if Start() is being called
-    Debug.Log("Start() called - Audio should not play yet.");
 }
+
 
 
 void OnMouseDown()
 {
     if (isOpened)
     {
-        CloseChest(); // If chest is open, close it
+        // If the chest is open, close it on click
+        CloseChest();
     }
     else
     {
-        OpenChest(); // If chest is closed, open it
+        // Check if any other chest is open and close it
+        PlayerInteractingWithAnotherChest();
+
+        // Open this chest
+        OpenChest();
     }
 }
+
+
+// Helper method
+bool PlayerInteractingWithAnotherChest()
+{
+    // Find all chests in the scene
+    ChestBehavior[] allChests = FindObjectsOfType<ChestBehavior>();
+    foreach (var chest in allChests)
+    {
+        if (chest != this && chest.isOpened) // Close other open chests
+        {
+            chest.CloseChest();
+        }
+    }
+    return false; // Always allow the current chest to proceed
+}
+
+
 
 void OpenChest()
 {
-    // Change the sprite to the open chest
-    spriteRenderer.sprite = openChestSprite;
-
-    // Show the chest contents UI
-    chestContents.SetActive(true);
-    UpdateItemUI(); // Update the UI with item details
-
-    // Play the open chest sound
-    if (audioSource != null && sound != null)
+    if (isOpened)
     {
-        audioSource.PlayOneShot(sound); // Use PlayOneShot to play sound once
+        Debug.Log($"Chest '{name}' is already open.");
+        return;
     }
 
-    isOpened = true; // Mark the chest as opened
+    // Ensure the current chest context
+    Debug.Log($"Opening chest '{name}' with item '{selectedItem.itemName}'");
+    chestContents.SetActive(true);
+    spriteRenderer.sprite = openChestSprite;
+    isOpened = true;
+
+    // Reset listeners for the equip button
+    equipButton.onClick.RemoveAllListeners(); // Remove old listeners
+    equipButton.onClick.AddListener(() =>
+    {
+        Debug.Log($"Equipping item '{selectedItem.itemName}' from chest '{name}'");
+        EquipItem();
+    });
+
+    if (audioSource != null && sound != null)
+    {
+        audioSource.PlayOneShot(sound);
+    }
 }
+
+
+
 
 void CloseChest()
 {
@@ -126,24 +156,31 @@ void CloseChest()
 
     // Equip the item when clicked
     public void EquipItem()
+{
+    if (selectedItem != null && PlayerStats.Instance != null)
     {
-        if (selectedItem != null && PlayerStats.Instance != null)
-        {
-            // Equip the item
-            PlayerStats.Instance.EquipItem(selectedItem);
+        // Debug the selected item
+        Debug.Log($"Equipping item from chest '{name}': {selectedItem.itemName}");
 
-            // Update the Inventory UI
-            if (inventoryUI != null)
-            {
-                inventoryUI.UpdateUI();
-            }
+        // Equip the item
+        PlayerStats.Instance.EquipItem(selectedItem);
 
-            // Hide chest contents UI after equipping
-            chestContents.SetActive(false);
-        }
-        else
+        // Update the Inventory UI
+        if (inventoryUI != null)
         {
-            Debug.LogError("PlayerStats not assigned or no item selected!");
+            inventoryUI.UpdateUI();
         }
+
+        // Hide chest contents UI after equipping
+        chestContents.SetActive(false);
+
+        // Mark chest as opened to prevent re-equipping
+        isOpened = true;
     }
+    else
+    {
+        Debug.LogError($"PlayerStats not assigned or no item selected for chest '{name}'!");
+    }
+}
+
 }
