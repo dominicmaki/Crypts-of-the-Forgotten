@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobData: {fileID: 11400000, guid: b4ef1d62c0cfde4499cdbf4a2f8c6596, type: 2}
+  patrolRadius: 10

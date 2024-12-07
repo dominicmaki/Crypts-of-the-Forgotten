@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Minotaur
   m_EditorClassIdentifier: 
   mobPrefab: {fileID: 7572362931703702171, guid: ed7b151b9d362c64ba64e0037cafe521, type: 3}
-  maxHealth: 50
+  maxHealth: 1000
   attackDamage: 20
   moveSpeed: 4
   deathSound: {fileID: 0}

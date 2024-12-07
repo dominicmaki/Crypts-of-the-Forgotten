@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
-    public MobSO mobData;  // Reference to the Mob ScriptableObject (for mob variation)
+    public MobSO mobData;
 
-    private int currentHealth;  // Current health
-    private PlayerStats playerStats; // Reference to the PlayerStats component
-    private Transform player;  // Reference to the player's position (to follow or attack)
+    private int currentHealth;
+    private PlayerStats playerStats;
+    private Transform player;
+    private Vector3 initialPosition; // Store the spawn position for patrolling
+
+    public float patrolRadius = 10f; // Radius for patrolling around spawn point
+    private float patrolCooldown = 0.5f; // Time interval between patrol movements
+    private float lastPatrolTime;
 
     void Start()
     {
-        // If mobData is assigned, initialize attributes
         if (mobData != null)
         {
             InitializeMobAttributes();
@@ -23,10 +27,8 @@ public class Mob : MonoBehaviour
             return;
         }
 
-        // Automatically find the player in the scene
         player = GameObject.FindWithTag("Character").transform;
 
-        // Ensure the player object is found before trying to get the PlayerStats component
         if (player != null)
         {
             playerStats = player.GetComponent<PlayerStats>();
@@ -35,95 +37,106 @@ public class Mob : MonoBehaviour
         {
             Debug.LogError("Player not found in the scene!");
         }
+
+        initialPosition = transform.position; // Save spawn position
     }
 
-    // Initialize or reset mob attributes based on the MobSO
     public void InitializeMobAttributes()
     {
         if (mobData != null)
         {
-            currentHealth = mobData.maxHealth; // Set initial health from the ScriptableObject
+            currentHealth = mobData.maxHealth;
         }
     }
 
     void Update()
     {
-        // Basic behavior: Move towards the player
-        if (player != null && mobData != null)
+        if (player == null || mobData == null) return;
+
+        float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+
+        if (distanceToPlayer <= 10f)
         {
             MoveTowardsPlayer();
         }
+        else if (distanceToPlayer > 20f)
+        {
+            Despawn();
+        }
+        else
+        {
+            Patrol();
+        }
 
-        // Optionally, check if the enemy is dead
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    // Move the enemy towards the player
     void MoveTowardsPlayer()
     {
-        if (mobData != null)
-        {
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.Translate(direction * mobData.moveSpeed * Time.deltaTime);
-        }
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.Translate(direction * mobData.moveSpeed * Time.deltaTime);
     }
 
-    // Deal damage to the enemy
+    void Patrol()
+{
+    // If it's time for a patrol move
+    if (Time.time - lastPatrolTime >= patrolCooldown)
+    {
+        // Pick a random position within the patrol radius around the initial position
+        Vector3 randomDirection = Random.insideUnitCircle * patrolRadius; // Use 2D circle for patrol area
+        Vector3 patrolTarget = initialPosition + new Vector3(randomDirection.x, randomDirection.y, 0);
+        
+        // Move towards the patrol target
+        transform.position = Vector3.MoveTowards(transform.position, patrolTarget, mobData.moveSpeed * Time.deltaTime);
+
+        // Update patrol time
+        lastPatrolTime = Time.time;
+    }
+}
+
+
+    void Despawn()
+    {
+        Destroy(gameObject);
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
-        // Check if the enemy's health is zero or less
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    // Handle enemy death
     void Die()
     {
-        // Optionally, play a death animation or effect here
-
-        // Destroy the enemy object
         Destroy(gameObject);
-
-        // Play death sound (if available in MobSO)
-        /*
-        if (mobData != null && mobData.deathSound != null)
-        {
-            AudioSource.PlayClipAtPoint(mobData.deathSound, transform.position);
-        }*/
     }
 
-    // Optionally, you can make the enemy attack the player if they are close enough
     public void AttackPlayer()
     {
         if (Vector3.Distance(transform.position, player.position) < 1.5f && playerStats != null)
         {
-            // Get the player's damage value (considering item bonuses)
-            int damage = mobData.attackDamage;  // Use attackDamage from MobSO
-            playerStats.TakeDamage(damage); // Apply the damage to the player
+            int damage = mobData.attackDamage;
+            playerStats.TakeDamage(damage);
         }
     }
 
-    // Handle collision with projectiles and player
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
         {
-            // Mob takes damage from the projectile
             TakeDamage(collision.gameObject.GetComponent<Projectile>().damage);
-            Destroy(collision.gameObject);  // Destroy the projectile on impact
+            Destroy(collision.gameObject);
         }
 
-        // Check if the Mob collides with the player
         if (collision.gameObject.CompareTag("Character"))
         {
-            // Mob deals damage to the player (using MobSO attack damage)
             AttackPlayer();
         }
     }

@@ -7,14 +7,13 @@ public class MobSpawner : MonoBehaviour
     public MobSO[] mobVariants;      // Array of mob types (ScriptableObjects)
     public Transform[] spawnPoints;  // Spawn points for enemies
     [SerializeField] public float spawnRadius = 10f;  // Detection radius around each spawn point
-    [SerializeField] public float spawnCooldown = 5f; // Time interval to prevent continuous spawning at a spawn point
+    [SerializeField] public float spawnCooldown = 3f; // Time interval to prevent continuous spawning at a spawn point
     private float[] lastSpawnTime;   // Track last spawn time for each spawn point
 
     public Transform player;         // Reference to the player's transform
 
     void Start()
     {
-        // Ensure mob variants and spawn points are assigned before starting
         if (spawnPoints.Length > 0 && mobVariants.Length > 0)
         {
             lastSpawnTime = new float[spawnPoints.Length]; // Initialize spawn timers for each spawn point
@@ -27,18 +26,17 @@ public class MobSpawner : MonoBehaviour
 
     void Update()
     {
-        // Loop through each spawn point and check if the player is within range
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             float distance = Vector3.Distance(player.position, spawnPoints[i].position);
 
-            // If the player is within the spawn radius and the spawn cooldown has passed
+            // Check if spawn point is within radius and cooldown has passed
             if (distance <= spawnRadius && Time.time - lastSpawnTime[i] >= spawnCooldown)
             {
                 // Spawn an enemy at this spawn point
                 SpawnEnemy(i);
 
-                // Reset the last spawn time to prevent continuous spawning
+                // Reset the last spawn time
                 lastSpawnTime[i] = Time.time;
             }
         }
@@ -52,26 +50,40 @@ public class MobSpawner : MonoBehaviour
             return;
         }
 
-        // Randomly select a mob variant from the available mob variants
+        // Randomly select a mob variant
         MobSO chosenMob = mobVariants[Random.Range(0, mobVariants.Length)];
 
-        // Instantiate the specific prefab for this mob variant
+        // Spawn the mob at the nearest spawn point
         GameObject spawnedMob = Instantiate(chosenMob.mobPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
-        // Retrieve the Mob script attached to the newly spawned enemy
         Mob mobScript = spawnedMob.GetComponent<Mob>();
-
         if (mobScript != null)
         {
-            // Assign the MobSO data to the mob's Mob script
             mobScript.mobData = chosenMob;
-
-            // Initialize mob attributes based on the selected MobSO
             mobScript.InitializeMobAttributes();
         }
         else
         {
             Debug.LogError("Spawned enemy prefab does not have a Mob script attached!");
         }
+    }
+
+    int GetClosestSpawnPoint()
+    {
+        int closestIndex = -1;
+        float shortestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            float distance = Vector3.Distance(player.position, spawnPoints[i].position);
+
+            if (distance < shortestDistance && distance <= spawnRadius)
+            {
+                shortestDistance = distance;
+                closestIndex = i;
+            }
+        }
+
+        return closestIndex;
     }
 }

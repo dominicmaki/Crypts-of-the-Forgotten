@@ -329,12 +329,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: despawnTime
-      value: 3
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: weaponSound
       value: 
       objectReference: {fileID: 8300000, guid: 8a2447d7d3a476e4bbe491cf8f670d02, type: 3}
+    - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
+      propertyPath: projectileSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3457650257897456705, guid: 6baca113a994a864b83105c369bea9d9, type: 3}
       propertyPath: spawnTransformUp
       value: 

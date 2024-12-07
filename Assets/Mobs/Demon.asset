@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   mobPrefab: {fileID: 3126772087195531835, guid: 441715fc74a1e264e938d02e99fe1d78, type: 3}
-  maxHealth: 100
+  maxHealth: 500
   attackDamage: 30
-  moveSpeed: 3
+  moveSpeed: 6
   deathSound: {fileID: 0}

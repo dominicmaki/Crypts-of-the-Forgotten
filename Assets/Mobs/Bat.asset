@@ -15,5 +15,5 @@ MonoBehaviour:
   mobPrefab: {fileID: 7834956769605554670, guid: 44436271d3e53d24eb77ba667f1a2806, type: 3}
   maxHealth: 50
   attackDamage: 10
-  moveSpeed: 6
+  moveSpeed: 8
   deathSound: {fileID: 0}
