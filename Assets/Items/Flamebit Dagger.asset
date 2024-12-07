@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
+  m_Name: Flamebit Dagger
+  m_EditorClassIdentifier: 
+  itemName: Flamebite Dagger
+  itemSprite: {fileID: 21300000, guid: bcc3b984a616b59438bdb161098359b6, type: 3}
+  hpBonus: 0
+  attackDamageBonus: 18
+  description: A fiery blade that scorches the skin of its enemies, leaving behind
+    a trail of orange fire.
+  itemType: 1
+  fireRate: 0

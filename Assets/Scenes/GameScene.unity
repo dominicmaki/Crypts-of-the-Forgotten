@@ -5362,11 +5362,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3c417343a6b3ec4f8573692b1e0c932, type: 2}
   spawnPoints:
   - {fileID: 1854573941}
-  - {fileID: 329402590}
-  - {fileID: 640355423}
-  - {fileID: 792244703}
   - {fileID: 1719888592}
-  spawnInterval: 5
+  spawnRadius: 10
+  spawnCooldown: 5
+  player: {fileID: 692745169}
 --- !u!4 &1157746601
 Transform:
   m_ObjectHideFlags: 0
@@ -7242,7 +7241,7 @@ Transform:
   m_GameObject: {fileID: 1719888591}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.3100004, y: -5.2700005, z: 0}
+  m_LocalPosition: {x: 7.8100004, y: -5.5200005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7506,7 +7505,7 @@ Transform:
   m_GameObject: {fileID: 1854573940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3100004, y: 1.6499996, z: 0}
+  m_LocalPosition: {x: -8.56, y: 4.6499996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

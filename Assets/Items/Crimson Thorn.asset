@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f1c3957197e814797e74c1c0bef144, type: 3}
+  m_Name: Crimson Thorn
+  m_EditorClassIdentifier: 
+  itemName: Crimson Thorn
+  itemSprite: {fileID: 21300000, guid: 3d7637f51c9897a479903d93c53ad147, type: 3}
+  hpBonus: 0
+  attackDamageBonus: 20
+  description: A vicious dagger with a maroonish hue, its sharp blade capable of
+    causing bleeding wounds that last long after the strike.
+  itemType: 1
+  fireRate: 0
