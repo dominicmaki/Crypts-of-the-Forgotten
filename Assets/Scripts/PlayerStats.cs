@@ -72,6 +72,10 @@ public void EquipItem(ItemSO item)
     // Debug: Show which item is being equipped
     Debug.Log($"Equipping item: {item.itemName}");
 
+    // Add bonuses from the item before equipping it
+    if (item.hpBonus > 0) totalHealthBonus += item.hpBonus;
+    if (item.attackDamageBonus > 0) totalAttackDamageBonus += item.attackDamageBonus;
+
     switch (item.itemType)
     {
         case ItemType.Ring:
@@ -116,8 +120,10 @@ public void EquipItem(ItemSO item)
             break;
     }
 
+    // Update stats after equipping the item
     UpdateStats();
 }
+
 
 
 

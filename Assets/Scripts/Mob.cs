@@ -59,7 +59,7 @@ public class Mob : MonoBehaviour
         {
             MoveTowardsPlayer();
         }
-        else if (distanceToPlayer > 20f)
+        else if (distanceToPlayer > 25f)
         {
             Despawn();
         }

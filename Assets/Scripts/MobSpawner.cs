@@ -1,22 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public class MobSpawner : MonoBehaviour
 {
-    public MobSO[] mobVariants;      // Array of mob types (ScriptableObjects)
-    public Transform[] spawnPoints;  // Spawn points for enemies
-    [SerializeField] public float spawnRadius = 10f;  // Detection radius around each spawn point
-    [SerializeField] public float spawnCooldown = 3f; // Time interval to prevent continuous spawning at a spawn point
-    private float[] lastSpawnTime;   // Track last spawn time for each spawn point
+    public MobSO[] mobVariants;      
+    public Transform[] spawnPoints;  
+    [SerializeField] public float spawnRadius = 20f;
+    [SerializeField] public float spawnCooldown = 3f;
+    private float[] lastSpawnTime;
 
-    public Transform player;         // Reference to the player's transform
+    public Transform player;
+    private Dictionary<string, int> activeMobs = new Dictionary<string, int>(); // Track active mob counts
+    private int maxActiveMobs = 10; // Max active mobs at any time
 
     void Start()
     {
         if (spawnPoints.Length > 0 && mobVariants.Length > 0)
         {
-            lastSpawnTime = new float[spawnPoints.Length]; // Initialize spawn timers for each spawn point
+            lastSpawnTime = new float[spawnPoints.Length];
         }
         else
         {
@@ -26,18 +29,18 @@ public class MobSpawner : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        int totalActiveMobs = activeMobs.Values.Sum();
+        if (totalActiveMobs < maxActiveMobs)
         {
-            float distance = Vector3.Distance(player.position, spawnPoints[i].position);
-
-            // Check if spawn point is within radius and cooldown has passed
-            if (distance <= spawnRadius && Time.time - lastSpawnTime[i] >= spawnCooldown)
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                // Spawn an enemy at this spawn point
-                SpawnEnemy(i);
+                float distance = Vector3.Distance(player.position, spawnPoints[i].position);
 
-                // Reset the last spawn time
-                lastSpawnTime[i] = Time.time;
+                if (distance <= spawnRadius && Time.time - lastSpawnTime[i] >= spawnCooldown)
+                {
+                    SpawnEnemy(i);
+                    lastSpawnTime[i] = Time.time;
+                }
             }
         }
     }
@@ -50,10 +53,9 @@ public class MobSpawner : MonoBehaviour
             return;
         }
 
-        // Randomly select a mob variant
         MobSO chosenMob = mobVariants[Random.Range(0, mobVariants.Length)];
 
-        // Spawn the mob at the nearest spawn point
+        // Spawn mob and ensure variety
         GameObject spawnedMob = Instantiate(chosenMob.mobPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
         Mob mobScript = spawnedMob.GetComponent<Mob>();
@@ -61,6 +63,11 @@ public class MobSpawner : MonoBehaviour
         {
             mobScript.mobData = chosenMob;
             mobScript.InitializeMobAttributes();
+            if (!activeMobs.ContainsKey(chosenMob.mobPrefab.name))
+            {
+                activeMobs[chosenMob.mobPrefab.name] = 0; // Initialize count if it's the first spawn
+            }
+            activeMobs[chosenMob.mobPrefab.name]++; // Increment active mob count
         }
         else
         {
@@ -68,22 +75,12 @@ public class MobSpawner : MonoBehaviour
         }
     }
 
-    int GetClosestSpawnPoint()
+    // Reset mob count when a mob is destroyed
+    public void OnMobDestroyed(string mobName)
     {
-        int closestIndex = -1;
-        float shortestDistance = Mathf.Infinity;
-
-        for (int i = 0; i < spawnPoints.Length; i++)
+        if (activeMobs.ContainsKey(mobName))
         {
-            float distance = Vector3.Distance(player.position, spawnPoints[i].position);
-
-            if (distance < shortestDistance && distance <= spawnRadius)
-            {
-                shortestDistance = distance;
-                closestIndex = i;
-            }
+            activeMobs[mobName]--;
         }
-
-        return closestIndex;
     }
 }

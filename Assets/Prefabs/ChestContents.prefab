@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8759038743412202493}
   - component: {fileID: 915305531750086891}
   - component: {fileID: 1420415477054328289}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4201633428563776268}
   - component: {fileID: 8712996547165251768}
   - component: {fileID: 8749140832483501609}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ChestContents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 6617487714203486633}
   - component: {fileID: 3756542886576033041}
   - component: {fileID: 6525468731506873541}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: itemName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 20.963419}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 3289205445641014110}
   - component: {fileID: 3227064710307915843}
   - component: {fileID: 2047374210249342807}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: itemImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: -0.46}
+  m_AnchoredPosition: {x: -0.01, y: -0.7108834}
   m_SizeDelta: {x: 1.8669, y: 1.9518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3227064710307915843
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 6511517362463292920}
   - component: {fileID: 4882224779827527273}
   - component: {fileID: 5018513406563755115}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: itemDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.16, y: 0.78}
+  m_AnchoredPosition: {x: -1.16, y: 1.0308833}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4882224779827527273
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -15.881371}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 2448924175970884664}
   - component: {fileID: 5875002254888010739}
   - component: {fileID: 4187150938104027504}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: itemStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.15, y: -0.07}
+  m_AnchoredPosition: {x: 2.3623672, y: 1.1844168}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5875002254888010739
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 2.5410156, y: 0, z: 66.701744, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 4199935597900805469}
   - component: {fileID: 6519593557346769638}
   - component: {fileID: 2483466583398223229}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,8 +727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.3823322, y: -1.7367494}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 2.0095406, y: -1.7367494}
+  m_SizeDelta: {x: 89, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4199935597900805469
 CanvasRenderer:
