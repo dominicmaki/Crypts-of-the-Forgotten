@@ -28,22 +28,29 @@ public class MobSpawner : MonoBehaviour
     }
 
     void Update()
+{
+    int totalActiveMobs = activeMobs.Values.Sum();
+    if (totalActiveMobs < maxActiveMobs)
     {
-        int totalActiveMobs = activeMobs.Values.Sum();
-        if (totalActiveMobs < maxActiveMobs)
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            for (int i = 0; i < spawnPoints.Length; i++)
-            {
-                float distance = Vector3.Distance(player.position, spawnPoints[i].position);
+            float distance = Vector3.Distance(player.position, spawnPoints[i].position);
 
-                if (distance <= spawnRadius && Time.time - lastSpawnTime[i] >= spawnCooldown)
-                {
-                    SpawnEnemy(i);
-                    lastSpawnTime[i] = Time.time;
-                }
+            // Check if player is within spawn radius and if cooldown has passed
+            if (distance <= spawnRadius && Time.time - lastSpawnTime[i] >= spawnCooldown)
+            {
+                SpawnEnemy(i);
+                lastSpawnTime[i] = Time.time; // Update spawn time
+            }
+            // Reset spawn time if player leaves spawn radius to allow respawn later
+            else if (distance > spawnRadius && Time.time - lastSpawnTime[i] < spawnCooldown)
+            {
+                lastSpawnTime[i] = Time.time - spawnCooldown; // Allow for next spawn
             }
         }
     }
+}
+
 
     void SpawnEnemy(int spawnPointIndex)
     {

@@ -1107,7 +1107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -255.39499, y: -0.00001335144}
+  m_AnchoredPosition: {x: -255.39502, y: -0.00001335144}
   m_SizeDelta: {x: 228.29, y: 268.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136433093
@@ -1320,8 +1320,8 @@ AudioSource:
   m_GameObject: {fileID: 162583725}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5525198766284952323, guid: 19426004b15996444b5e95c9a123d738, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 7971def91bdb59b42acee7f4cdb47ea9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3760,11 +3760,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 468355405108347744, guid: 6d06d8ade8257fb47b597a1bbf6a10f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.19
+      value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 468355405108347744, guid: 6d06d8ade8257fb47b597a1bbf6a10f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.8
+      value: 19.55
       objectReference: {fileID: 0}
     - target: {fileID: 468355405108347744, guid: 6d06d8ade8257fb47b597a1bbf6a10f0, type: 3}
       propertyPath: m_LocalPosition.z
